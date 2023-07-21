@@ -1,0 +1,11 @@
+.list {
+   list-style-type: none;
+}
+
+.itemIsFit {
+   color: green;
+}
+
+.itemIsNotFit {
+   color: black;
+}

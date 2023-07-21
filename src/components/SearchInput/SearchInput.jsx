@@ -1,8 +1,9 @@
+import styles from "./SearchInput.module.css";
+import { memo } from "react";
 
-
-export const SearchInput = (({ value, onChange }) => {
+export const SearchInput = memo(({ value, onChange }) => {
    return (
-      <input
+      <input className={styles.input}
          type="text"
          placeholder="Поиск"
          value={value}

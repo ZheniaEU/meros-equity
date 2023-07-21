@@ -3,9 +3,13 @@
 }
 
 .itemIsFit {
-   color: green;
+   color: dodgerblue;
 }
 
 .itemIsNotFit {
    color: black;
+}
+
+.button {
+   margin-left: 10px;
 }

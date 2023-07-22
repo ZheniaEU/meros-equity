@@ -15,7 +15,7 @@ export function addMultipleFields(data, fields) {
 }
 
 export function addAllFields(data) {
-   function adder(data, parent = null) {
+   function transformItem(data, parent = null) {
       if (!data) {
          return [];
       }
@@ -25,10 +25,10 @@ export function addAllFields(data) {
             parent,
             isOpen: false,
             isFit: false,
-            children: adder(item.children, item)
+            children: transformItem(item.children, item)
          };
          return newItem;
       });
    }
-   return adder(data);
+   return transformItem(data);
 }

@@ -25,6 +25,7 @@ export function addAllFields(data) {
             parent,
             isOpen: false,
             isFit: false,
+            // isChecked: false,
             children: transformItem(item.children, item)
          };
          return newItem;

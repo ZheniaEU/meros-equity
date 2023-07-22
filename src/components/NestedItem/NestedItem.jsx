@@ -1,5 +1,5 @@
 import { memo, useEffect, useState } from "react";
-import { gatherNestedIds } from "../../utils/dataTransformations";
+import { gatherNestedIds } from "../../utils/itemUtils";
 
 import styles from "./NestedItem.module.css";
 

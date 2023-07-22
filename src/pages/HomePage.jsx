@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { SearchInput } from "../components/SearchInput/SearchInput";
 import { NestedItem } from "../components/NestedItem/NestedItem";
 import { useDebounce } from "../hooks/useDebounce";
-import { addAllFields, addMultipleFields, recursiveSearchByTitle, updateOpenItems } from "../utils/dataTransformations";
+import { addAllFields, addMultipleFields } from "../utils/dataTransformations";
+import { updateOpenItems } from "../utils/itemUtils";
+import { recursiveSearchByTitle } from "../utils/searchUtils";
 
 import { okvedTreeData } from "../mocks/okvedTreeData";
 

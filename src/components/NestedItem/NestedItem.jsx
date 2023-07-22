@@ -3,8 +3,9 @@ import { gatherNestedIds } from "../../utils/itemUtils";
 
 import styles from "./NestedItem.module.css";
 
-export const NestedItem = memo(({ item, setOpenedItems }) => {
+export const NestedItem = memo(({ item, setOpenedItems, setSelectedItems }) => {
    const [isOpen, setIsOpen] = useState(item.isOpen);
+   const [isChecked, setIsChecked] = useState(false);
 
    useEffect(() => {
       setIsOpen(item.isOpen);
@@ -22,9 +23,23 @@ export const NestedItem = memo(({ item, setOpenedItems }) => {
       setIsOpen(!isOpen);
    };
 
+   // Функция для обновления состояния чекбокса и вызова setSelectedItems
+   const handleCheckboxChange = () => {
+      const newIsChecked = !isChecked;
+      setIsChecked(newIsChecked);
+      setSelectedItems((prevItems) => {
+         if (newIsChecked) {
+            return [...prevItems, item.id];
+         } else {
+            return prevItems.filter((id) => id !== item.id);
+         }
+      });
+   };
+
    return (
       <ul className={styles.list}>
          <li className={styles.listItem}>
+            <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} />
             <span className={item.isFit ? styles.itemIsFit : styles.itemIsNotFit}>
                {item.id} | {item.title}
             </span>
@@ -37,6 +52,7 @@ export const NestedItem = memo(({ item, setOpenedItems }) => {
                      item={child}
                      key={child.id}
                      setOpenedItems={setOpenedItems}
+                     setSelectedItems={setSelectedItems}
                   />
                ))}
          </li>

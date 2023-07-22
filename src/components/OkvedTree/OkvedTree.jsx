@@ -5,10 +5,12 @@ import { useDebounce } from "../../hooks/useDebounce";
 import { addAllFields, addMultipleFields } from "../../utils/dataTransformations";
 import { updateOpenItems } from "../../utils/itemUtils";
 import { recursiveSearchByTitle } from "../../utils/searchUtils";
+import { SaveButton } from "../SaveButton/SaveButton";
 
 export function OkvedTree({ initialData }) {
    const [list, setList] = useState(addAllFields(initialData));
    const [openedItems, setOpenedItems] = useState([]);
+   const [selectedItems, setSelectedItems] = useState([]);
 
    const [value, setValue] = useState("");
    const debouncedValue = useDebounce(value, 300);
@@ -49,8 +51,9 @@ export function OkvedTree({ initialData }) {
    return (
       <>
          <SearchInput value={value} onChange={setValue} />
+         <SaveButton selectedItems={selectedItems} />
          {list.map((item) => (
-            <NestedItem key={item.id} item={item} setOpenedItems={setOpenedItems} />
+            <NestedItem key={item.id} item={item} setOpenedItems={setOpenedItems} setSelectedItems={setSelectedItems} />
          ))}
       </>
    );

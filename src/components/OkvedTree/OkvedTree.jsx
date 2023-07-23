@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { SearchInput } from "../SearchInput/SearchInput";
 import { NestedItem } from "../NestedItem/NestedItem";
 import { useDebounce } from "../../hooks/useDebounce";
@@ -17,25 +17,28 @@ const getItemsFromLocalStorage = (key) => {
    }
 };
 
+const updateLocalStorage = (key, value) => {
+   localStorage.setItem(key, JSON.stringify(value));
+};
+
 export function OkvedTree({ initialData }) {
-   const isMounted = useRef(false);
    const [list, setList] = useState(addAllFields(initialData));
    const [openedItems, setOpenedItems] = useState(getItemsFromLocalStorage("openedItems"));
    const [selectedItems, setSelectedItems] = useState(getItemsFromLocalStorage("selectedItems"));
    const [value, setValue] = useState("");
    const debouncedValue = useDebounce(value, 300);
 
-   useLayoutEffect(() => {
-      localStorage.setItem("selectedItems", JSON.stringify(selectedItems));
-      localStorage.setItem("openedItems", JSON.stringify(openedItems));
+   useEffect(() => {
+      updateLocalStorage("selectedItems", selectedItems);
+      updateLocalStorage("openedItems", openedItems);
       setList((list) => updateListWithSelectedAndOpenedItems(list, openedItems, selectedItems));
    }, [selectedItems, openedItems]);
 
    useEffect(() => {
-      if (isMounted.current) {
-         setList((list) => updateListOnSearch(list, debouncedValue, setOpenedItems));
+      if (!debouncedValue) {
+         return;
       }
-      isMounted.current = true;
+      setList((list) => updateListOnSearch(list, debouncedValue, setOpenedItems));
    }, [debouncedValue]);
 
    return (<>

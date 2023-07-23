@@ -62,6 +62,18 @@ export function toggler(setOpenedItems, isOpen, item) {
    return !isOpen;
 }
 
+export function handleCheckboxToggle(isChecked, item, setSelectedItems) {
+   const newIsChecked = !isChecked;
+   setSelectedItems((prevItems) => {
+      if (newIsChecked) {
+         return [...prevItems, item.id];
+      } else {
+         return prevItems.filter((id) => id !== item.id);
+      }
+   });
+   return newIsChecked;
+}
+
 function gatherNestedIds(item) {
    const ids = [item.id];
 

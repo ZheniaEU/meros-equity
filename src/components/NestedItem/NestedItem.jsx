@@ -1,5 +1,5 @@
 import { memo, useEffect, useState } from "react";
-import { toggler } from "../../utils/itemUtils";
+import { toggler, handleCheckboxToggle } from "../../utils/itemUtils";
 
 import styles from "./NestedItem.module.css";
 
@@ -21,15 +21,8 @@ export const NestedItem = memo(({ item, setOpenedItems, setSelectedItems }) => {
    };
 
    const handleCheckboxChange = () => {
-      const newIsChecked = !isChecked;
+      const newIsChecked = handleCheckboxToggle(isChecked, item, setSelectedItems);
       setIsChecked(newIsChecked);
-      setSelectedItems((prevItems) => {
-         if (newIsChecked) {
-            return [...prevItems, item.id];
-         } else {
-            return prevItems.filter((id) => id !== item.id);
-         }
-      });
    };
 
    return (

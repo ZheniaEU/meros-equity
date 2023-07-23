@@ -1,27 +1,14 @@
 import { addMultipleFields } from "./dataTransformations";
 import { recursiveSearchByTitle } from "./searchUtils";
 
-export function updateListWithOpenItems(list, openedItems) {
-   function updateOpenItems(items, arr) {
-      items.forEach((item) => {
-         item.isOpen = arr.includes(item.id);
-         if (item.children && item.children.length > 0) {
-            updateOpenItems(item.children, arr);
-         }
-      });
-   }
-
-   updateOpenItems(list, openedItems);
-   return list;
-}
-
-export function updateListWithSelectedAndOpenedItems(list, openedItems, checkedItems) {
+export function updateListItems(list, openedItems, checkedItems) {
+   console.log(checkedItems)
    return list.map((item) => {
       return {
          ...item,
          isChecked: checkedItems.includes(item.id),
          isOpen: openedItems.includes(item.id),
-         children: updateListWithSelectedAndOpenedItems(item.children, openedItems, checkedItems)
+         children: updateListItems(item.children, openedItems, checkedItems)
       };
    });
 }

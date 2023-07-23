@@ -14,22 +14,18 @@ export function addMultipleFields(data, fields) {
    });
 }
 
-export function addAllFields(data) {
-   function transformItem(data, parent = null) {
-      if (!data) {
-         return [];
-      }
-      return data.map((item) => {
-         const newItem = {
-            ...item,
-            parent,
-            isOpen: false,
-            isFit: false,
-            isChecked: false,
-            children: transformItem(item.children, item)
-         };
-         return newItem;
-      });
+export function addAllFields(data, parent = null) {
+   if (!data) {
+      return [];
    }
-   return transformItem(data);
+   return data.map((item) => {
+       return {
+           ...item,
+           parent,
+           isOpen: false,
+           isFit: false,
+           isChecked: false,
+           children: addAllFields(item.children, item),
+       };
+   });
 }

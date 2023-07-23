@@ -2,7 +2,6 @@ import { addMultipleFields } from "./dataTransformations";
 import { recursiveSearchByTitle } from "./searchUtils";
 
 export function updateListItems(list, openedItems, checkedItems) {
-   console.log(checkedItems)
    return list.map((item) => {
       return {
          ...item,
